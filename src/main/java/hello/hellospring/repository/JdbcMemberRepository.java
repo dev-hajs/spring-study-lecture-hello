@@ -161,10 +161,14 @@ public class JdbcMemberRepository implements MemberRepository {
         }
         try {
             if (conn != null) {
-                conn.close();
+                close(conn);
             }
         } catch (SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    private void close(Connection conn) throws SQLException {
+        DataSourceUtils.releaseConnection(conn, dataSource);
     }
 }
